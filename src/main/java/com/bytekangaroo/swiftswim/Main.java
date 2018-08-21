@@ -48,6 +48,7 @@ public class Main extends JavaPlugin {
     public void onDisable(){
 
         // Make sure to clear the swiftswim list, disabling everyone with swiftswim
+        getLogger().log(Level.INFO, "SwiftSwimManager v" + getDescription().getVersion() + " has successfully been disabled!");
 
     }
 

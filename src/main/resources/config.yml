@@ -1,3 +1,5 @@
 enabled-worlds:
   - towny
   - world
+speed: 3
+particles-enabled: false

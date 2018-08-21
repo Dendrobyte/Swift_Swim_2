@@ -22,7 +22,7 @@ import java.util.UUID;
 public class SwiftSwimManager {
 
     private static SwiftSwimManager instance = null;
-    private final static List<String> ENABLED_WORLDS = Main.getInstance().getConfig().getStringList("enabled-worlds");
+    private static List<String> ENABLED_WORLDS = Main.getInstance().getConfig().getStringList("enabled-worlds");
 
     private static HashMap<UUID, String> enabledPlayers = new HashMap<UUID, String>();
 
@@ -49,6 +49,10 @@ public class SwiftSwimManager {
     // Get the enabled worlds from config.yml so you don't have to access the config every time
     public List<String> getEnabledWorlds(){
         return ENABLED_WORLDS;
+    }
+
+    public void resetEnabledWorlds() {
+        ENABLED_WORLDS = Main.getInstance().getConfig().getStringList("enabled-worlds");
     }
 
     // Check if it is raining in the player's world so that swiftswim can be safely enabled
@@ -90,7 +94,7 @@ public class SwiftSwimManager {
         }
 
         enabledPlayers.put(player.getUniqueId(), world.getName());
-        giveSpeed(player, 3);
+        giveSpeed(player);
         player.sendMessage(prefix + "SwiftSwim has been " + ChatColor.GREEN + "enabled!" + ChatColor.getLastColors(prefix) + " Enjoy being one speedy boi!");
     }
 
@@ -114,7 +118,8 @@ public class SwiftSwimManager {
     }
 
     // Method to give speed to a player
-    private void giveSpeed(Player player, int amplifier){
+    private void giveSpeed(Player player){
+        int amplifier = Main.getInstance().getConfig().getInt("speed");
         PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, amplifier, true, false);
         player.addPotionEffect(speed);
     }

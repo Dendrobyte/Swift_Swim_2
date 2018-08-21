@@ -65,9 +65,11 @@ public class SwiftCommand implements CommandExecutor {
             }
             if(args[0].equals("reload") && (player.hasPermission("swiftswim.reload") || player.isOp())){
                 Main.getInstance().reloadConfig();
-                Main.getInstance().saveConfig();
+                manager.resetEnabledWorlds();
                 player.sendMessage(prefix + "Swift Swim v" + Main.getInstance().getDescription().getVersion() + " has been reloaded!");
                 player.sendMessage(prefix + "Enabled Worlds: " + ChatColor.GRAY + manager.getEnabledWorlds().toString());
+                player.sendMessage(prefix + "Speed Level: " + ChatColor.GRAY + Main.getInstance().getConfig().getInt("speed"));
+                player.sendMessage(prefix + "Particles Enabled: " + ChatColor.GRAY + Main.getInstance().getConfig().getBoolean("particles-enabled") + ChatColor.RED + " [NOT IMPLEMENTED]");
             } else {
                 player.sendMessage(prefix + "Argument not recognized! See " + ChatColor.DARK_AQUA + "/swiftswim help" + ChatColor.getLastColors(prefix) + " for command list.");
             }
