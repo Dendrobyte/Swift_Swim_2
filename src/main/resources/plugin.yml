@@ -1,0 +1,16 @@
+name: Swift_Swim
+author: ByteKangaroo
+version: 2.0
+api-version: 1.13
+main: com.bytekangaroo.swiftswim.Main
+description: A re-write of Swift Swim, the plugin that allows players to gain a speed boost when it is raining.
+commands:
+  swiftswim:
+    usage: /<command> <enable/disable>
+    aliases: [swift, swim]
+    description: The core swiftswim command
+permissions:
+  swiftswim.use:
+    description: Allows a player to a use Swift Swim (and get prompted to use it)
+  swiftswim.reload:
+    description: Allows a player to reload the configuration file (for adding and removing worlds)
