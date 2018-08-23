@@ -32,6 +32,7 @@ public class SwiftSwimManager {
 
     }
 
+    /* Getters */
     public static SwiftSwimManager getInstance(){
         if(instance == null){
             instance = new SwiftSwimManager();
@@ -39,7 +40,6 @@ public class SwiftSwimManager {
 
         return instance;
     }
-
     // Get the hashmap that stores each player.
     // The key is the world, so it is easier to loop through when disabling SwiftSwim for any given players
     public HashMap<UUID, String> getEnabledPlayers(){
@@ -51,30 +51,12 @@ public class SwiftSwimManager {
         return ENABLED_WORLDS;
     }
 
-    public void resetEnabledWorlds() {
-        ENABLED_WORLDS = Main.getInstance().getConfig().getStringList("enabled-worlds");
-    }
-
-    // Check if it is raining in the player's world so that swiftswim can be safely enabled
-    public boolean isRainingInWorld(Player player){
-        World world = player.getWorld();
-        return world.hasStorm();
-    }
-
-    public void promptForSwiftSwim(Player player){
-        if(player.hasPermission("swiftswim.use")) {
-            player.sendMessage(prefix + "*gasp* It is now raining in your world!");
-            player.sendMessage(prefix + "Would you like to enable " + ChatColor.BOLD + "SwiftSwim" + ChatColor.getLastColors(prefix) + " for a speed boost?");
-            player.sendMessage(prefix + "Type " + ChatColor.GREEN + "/swiftswim enable" + ChatColor.getLastColors(prefix) + " to do so!");
-        }
-    }
-
+    /* Enable/Disable SwiftSwim */
     // Check if a player has SwiftSwim enabled without having to read the list every time.
     public boolean swimEnabled(Player player){
         return getEnabledPlayers().keySet().contains(player.getUniqueId());
     }
-
-    // Enable swiftswim for a given player
+    
     public void enableSwim(Player player){
         World world = player.getWorld();
 
@@ -117,6 +99,16 @@ public class SwiftSwimManager {
 
     }
 
+    /* Checking Method */
+    public void promptForSwiftSwim(Player player){
+        if(player.hasPermission("swiftswim.use")) {
+            player.sendMessage(prefix + "*gasp* It is now raining in your world!");
+            player.sendMessage(prefix + "Would you like to enable " + ChatColor.BOLD + "SwiftSwim" + ChatColor.getLastColors(prefix) + " for a speed boost?");
+            player.sendMessage(prefix + "Type " + ChatColor.GREEN + "/swiftswim enable" + ChatColor.getLastColors(prefix) + " to do so!");
+        }
+    }
+
+    /* Manage Player Effects */
     // Method to give speed to a player
     private void giveSpeed(Player player){
         int amplifier = Main.getInstance().getConfig().getInt("speed");
@@ -127,5 +119,10 @@ public class SwiftSwimManager {
     // Method to remove speed from a player
     private void removeSpeed(Player player){
         player.removePotionEffect(PotionEffectType.SPEED);
+    }
+
+    /* Config Methods */
+    public void resetEnabledWorlds() {
+        ENABLED_WORLDS = Main.getInstance().getConfig().getStringList("enabled-worlds");
     }
 }
